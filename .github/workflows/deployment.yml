@@ -26,6 +26,6 @@ jobs:
               echo "Repository already exists, cleaning up"
               cd ref-logistics-app-sdk && docker-compose down && cd && sudo rm -rf ref-logistics-app-sdk
             fi
-            git clone -b develop https://github.com/Dishab-kaushal/ref-logistics-app-sdk.git && cd ref-logistics-app-sdk && cp ~/.env .env && git submodule init && git submodule update --remote --recursive
+            git clone -b develop https://github.com/ONDC-Official/ref-logistics-app-sdk.git && cd ref-logistics-app-sdk && cp ~/.env .env && git submodule init && git submodule update --remote --recursive
             sudo docker-compose up -d --build
             echo "Deployment completed"
