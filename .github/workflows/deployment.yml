@@ -1,31 +1,31 @@
-name: ref-logistics Deployment
+# name: ref-logistics Deployment
 
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+# on:
+#   push:
+#     branches: [ "develop" ]
+#   pull_request:
+#     branches: [ "develop" ]
 
-jobs:
-  ssh-ec2:
-    runs-on: ubuntu-latest
+# jobs:
+#   ssh-ec2:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ vars.REF_HOST }}
-          username: ${{ vars.REF_USER }}
-          password: ${{ vars.REF_PASSWORD }}
-          port: 22
-          script: |
-            if [ -d "ref-logistics-app-sdk" ]; then
-              echo "Repository already exists, cleaning up"
-              cd ref-logistics-app-sdk && docker-compose down && cd && sudo rm -rf ref-logistics-app-sdk
-            fi
-            git clone -b develop https://github.com/ONDC-Official/ref-logistics-app-sdk.git && cd ref-logistics-app-sdk && cp ~/.env .env && git submodule init && git submodule update --remote --recursive
-            sudo docker-compose up -d --build
-            echo "Deployment completed"
+#       - name: executing remote ssh commands using password
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ vars.REF_HOST }}
+#           username: ${{ vars.REF_USER }}
+#           password: ${{ vars.REF_PASSWORD }}
+#           port: 22
+#           script: |
+#             if [ -d "ref-logistics-app-sdk" ]; then
+#               echo "Repository already exists, cleaning up"
+#               cd ref-logistics-app-sdk && docker-compose down && cd && sudo rm -rf ref-logistics-app-sdk
+#             fi
+#             git clone -b develop https://github.com/ONDC-Official/ref-logistics-app-sdk.git && cd ref-logistics-app-sdk && cp ~/.env .env && git submodule init && git submodule update --remote --recursive
+#             sudo docker-compose up -d --build
+#             echo "Deployment completed"
